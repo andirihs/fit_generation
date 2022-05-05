@@ -18,7 +18,17 @@ if (flutterVersionCode == null) {
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '1.0.0'
+}
+
+def flutterCompileVersion = localProperties.getProperty('flutter.compileSdkVersion')
+if (flutterCompileVersion == null) {
+    flutterCompileVersion = '31'
+}
+
+def flutterMinSdkVersion = localProperties.getProperty('flutter.compileSdkVersion')
+if (flutterMinSdkVersion == null) {
+    flutterMinSdkVersion = '23'
 }
 
 apply plugin: 'com.android.application'
@@ -44,8 +54,10 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "app.fitgeneration.fit_generation"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+//        minSdkVersion 23
+//        targetSdkVersion 31
+        minSdkVersion flutterMinSdkVersion.toInteger()
+        targetSdkVersion flutterCompileVersion.toInteger()
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

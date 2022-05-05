@@ -88,21 +88,22 @@ flutter:
 
 # flutter pub run flutter_launcher_icons:main
 flutter_icons:
-  image_path: 'assets/logo/Logo_Fit-Generation.png'
+  image_path: 'assets/logo/Logo_Fit-Generation_android_logo.png'
   android: true
-  ios: true
+  ios: false
   remove_alpha_ios: true
   image_path_ios: 'assets/logo/Logo_Fit-Generation.png'
+  image_path_android: 'assets/logo/Logo_Fit-Generation_android_logo.png'
   adaptive_icon_padding: true
-  adaptive_icon_background: 'ffffff'
-  adaptive_icon_foreground: 'assets/logo/Logo_Fit-Generation.png'
+  adaptive_icon_background: '#ffffff'
+  adaptive_icon_foreground: 'assets/logo/Logo_Fit-Generation_android_logo.png'
 
 # flutter pub run flutter_native_splash:create
 # ToDo: use the remove() after initialize of app
 flutter_native_splash:
   color: "#ffffff"
   # png file and should be sized for 4x pixel density.
-  image: 'assets/logo/3.0x/Logo_Fit-Generation.png'
+  image: 'assets/logo/Logo_Fit-Generation_android_logo.png'
   android: true
   ios: true
   web: true
