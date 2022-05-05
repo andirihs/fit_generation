@@ -15,11 +15,65 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  #Firebase support
+  # https://pub.dev/packages/firebase_core
+  firebase_core: ^1.16.0
+  # https://pub.dev/packages/cloud_firestore
+  cloud_firestore: ^3.1.14
+  # https://pub.dev/packages/firebase_auth/changelog
+  firebase_auth: ^3.3.17
+
+  # https://pub.dev/packages/stream_chat_flutter
+  stream_chat_flutter: ^4.0.1
+
+  # https://pub.dev/packages/hooks_riverpod
+  hooks_riverpod: ^2.0.0-dev.5
+
+  #needed for freezed package: https://pub.dev/packages/json_annotation
+  json_annotation: ^4.5.0
+
+  #freezed annotation: https://pub.dev/packages/freezed_annotation
+  freezed_annotation: ^1.1.0
+
+  #https://pub.dev/packages/flutter_hooks
+  flutter_hooks: ^0.18.3
+
+  #https://pub.dev/packages/flutter_native_splash
+  flutter_native_splash: ^2.1.6
+
+  # https://pub.dev/packages/introduction_screen
+  introduction_screen: ^3.0.2
+
+  # https://pub.dev/packages/shared_preferences
+  shared_preferences: ^2.0.13
+
+  # https://pub.dev/packages/go_router
+  go_router: ^3.1.0
+
+  # https://pub.dev/packages/flex_color_scheme
+  flex_color_scheme: ^5.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^1.0.0
+  # https://pub.dev/packages/flutter_lints
+  flutter_lints: ^1.0.4
+
+  #needed for freezed: https://pub.dev/packages/build_runner
+  build_runner: ^2.1.10
+
+  #use for freezed: https://pub.dev/packages/json_serializable
+  json_serializable: ^6.1.3
+
+  # Code generation for model classes: https://pub.dev/packages/freezed
+  # Explanation: https://www.youtube.com/watch?v=ApvMmTrBaFI
+  # https://pub.dev/packages/freezed
+  freezed: ^1.1.1
+
+  #https://pub.dev/packages/flutter_launcher_icons
+  flutter_launcher_icons: ^0.9.2
+
 
 flutter:
   uses-material-design: true
@@ -30,3 +84,25 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/logo/
+
+# flutter pub run flutter_launcher_icons:main
+flutter_icons:
+  image_path: 'assets/logo/Logo_Fit-Generation.png'
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path_ios: 'assets/logo/Logo_Fit-Generation.png'
+  adaptive_icon_padding: true
+  adaptive_icon_background: 'ffffff'
+  adaptive_icon_foreground: 'assets/logo/Logo_Fit-Generation.png'
+
+# flutter pub run flutter_native_splash:create
+# ToDo: use the remove() after initialize of app
+flutter_native_splash:
+  color: "#ffffff"
+  # png file and should be sized for 4x pixel density.
+  image: 'assets/logo/3.0x/Logo_Fit-Generation.png'
+  android: true
+  ios: true
+  web: true

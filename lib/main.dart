@@ -16,5 +16,11 @@ void main() async {
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
-  runApp(MyApp(settingsController: settingsController));
+  runApp(
+    /// https://github.com/csells/go_router/blob/main/go_router/example/lib/state_restoration.dart
+    RootRestorationScope(
+      restorationId: 'root',
+      child: MyApp(settingsController: settingsController),
+    ),
+  );
 }
