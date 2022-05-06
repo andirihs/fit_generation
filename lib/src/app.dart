@@ -7,10 +7,7 @@ import 'settings/settings_controller.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatefulWidget {
-  const MyApp({
-    Key? key,
-    required this.settingsController,
-  }) : super(key: key);
+  const MyApp({Key? key, required this.settingsController}) : super(key: key);
 
   final SettingsController settingsController;
 

@@ -33,7 +33,7 @@ class SampleItemListView extends StatelessWidget {
     ],
   }) : super(key: key);
 
-  static const routeName = '/';
+  static const routeName = '/sample_list';
 
   final List<SampleItem> items;
 
