@@ -33,18 +33,24 @@ Solution would be to have just one page with stacked views in int. See:
 - https://www.youtube.com/watch?v=xoKqQjSDZ60
 - https://codewithandrea.com/articles/multiple-navigators-bottom-navigation-bar/
 
-To make BottomNavigationBar working with go router we need at least two things: 
+To make BottomNavigationBar working with go router we need at least three things: 
 1. [SharedScaffold](lib/src/shared_scaffold.dart): 
    The SharedScaffold contain a Scaffold-Widget which contains only the widgets which should be 
-   present trough all top Screens which could be accessed trough the BottomNavigationBar. 
-   This is especially the BottomNavigationBar but could also be a Drawer or an AppBar.  
+   present trough all top views which could be accessed trough the BottomNavigationBar. 
+   This is especially the BottomNavigationBar but could also be a Nav-Drawer or an global AppBar.  
    In the BottomNavigationBar's ``onTap`` methode must ensure that a new index cause a navigation. 
    Make sure that the index and navigation match the ``BottomNavigationBarItem``.
   
 2. [GoRouter](lib/src/routing/app_router.dart)
-   The main routes should not have transition to make it look at you would stay on the same page.  
-   Further we need the `navigatorBuilder` which ensure that the SharedScaffold get the 
+   The top-routes should not have transition to make it look at you would stay on the same page.  
+   Further we need the ``navigatorBuilder`` which ensure that the SharedScaffold get the 
    correct page index when navigating to one of top views.
+   Make sure that the index provided by ``getSelectedNavBarIndex()`` match the BottomNavigationBar.
+
+3. When navigating to a route which is **not a sub-route** of the top views (in BottomNavigationBar)  
+   the ``navigatorBuilder`` will provide -1 to the to the SharedScaffold which then hide the BottomNavBar.  
+   This way there is no nav-stack when restoring the app state (no back button) and  
+   we therefore **must add a possibility to return home manually**.
 
 ## Assets
 

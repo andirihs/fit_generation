@@ -33,7 +33,7 @@ class SampleItemListView extends StatelessWidget {
     ],
   }) : super(key: key);
 
-  static const routeName = '/sample_list';
+  static const routeName = 'sample_list';
 
   final List<SampleItem> items;
 
@@ -45,21 +45,15 @@ class SampleItemListView extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () {
-              // Navigate to the settings page. If the user leaves and returns
-              // to the app after it has been killed while running in the
-              // background, the navigation stack is restored.
-              // Navigator.restorablePushNamed(context, SettingsView.routeName);
-              // context.go("/" + SettingsView.routeName);
-              context.goNamed(SettingsView.routeName);
-            },
+            onPressed: () => context.pushNamed(SettingsView.routeName),
           ),
         ],
       ),
       body: ListView.builder(
-        // Providing a restorationId allows the ListView to restore the
-        // scroll position when a user leaves and returns to the app after it
-        // has been killed while running in the background.
+        /// Providing a restorationId allows the ListView to restore the
+        /// scroll position when a user leaves and returns to the app after it
+        /// has been killed while running in the background.
+        // ToDo: not working/
         restorationId: 'sampleItemListView',
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
@@ -68,19 +62,13 @@ class SampleItemListView extends StatelessWidget {
           return ListTile(
             title: Text('SampleItem ${item.id}'),
             leading: const CircleAvatar(
-              // Display the Flutter Logo image asset.
               foregroundImage:
                   AssetImage('assets/logo/Logo_Fit-Generation.png'),
             ),
-            onTap: () {
-              // Navigate to the details page. If the user leaves and returns to
-              // the app after it has been killed while running in the
-              // background, the navigation stack is restored.
-              // Navigator.restorablePushNamed(
-              //     context, SampleItemDetailsView.routeName);
-              // context.go("/" + SampleItemDetailsView.routeName);
-              context.goNamed(SampleItemDetailsView.routeName);
-            },
+            onTap: () => context.goNamed(
+              SampleItemDetailsView.routeName,
+              params: {"id": "${item.id}"},
+            ),
           );
         },
       ),

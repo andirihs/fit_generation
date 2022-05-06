@@ -1,15 +1,14 @@
+import 'package:fit_generation/src/routing/app_router.dart';
 import 'package:fit_generation/src/settings/settings_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 /// Displays the various settings that can be customized by the user.
 ///
 /// When a user changes a setting, the SettingsController is updated and
 /// Widgets that listen to the SettingsController are rebuilt.
 class SettingsView extends StatelessWidget {
-  const SettingsView({
-    required this.controller,
-    Key? key,
-  }) : super(key: key);
+  const SettingsView({required this.controller, Key? key}) : super(key: key);
 
   static const routeName = 'settings';
 
@@ -20,6 +19,17 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
+        leading: IconButton(
+          icon: Icon(
+            Icons.close,
+            color: Theme.of(context).colorScheme.error,
+          ),
+          onPressed: () {
+            /// queryParam could be added to navigate back to correct path
+            context.goNamed(AppRouter.homeRoute);
+          },
+          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -32,7 +42,7 @@ class SettingsView extends StatelessWidget {
           value: controller.themeMode,
           // Call the updateThemeMode method any time the user selects a theme.
           onChanged: controller.updateThemeMode,
-          items: [
+          items: const [
             DropdownMenuItem(
               value: ThemeMode.system,
               child: Text('System Theme'),

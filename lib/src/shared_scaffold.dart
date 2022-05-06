@@ -1,6 +1,4 @@
-import 'package:fit_generation/src/chat_feat/chat_view.dart';
-import 'package:fit_generation/src/sample_feat/sample_item_list_view.dart';
-import 'package:fit_generation/src/wight_tracker_feat/weight_tracker_view.dart';
+import 'package:fit_generation/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,10 +9,12 @@ class SharedScaffold extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-  /// The selected index
+  /// The selected buttonNavBar-Index
+  /// Provide -1 if there should no bottomNavBar be visible
   final int selectedIndex;
 
-  /// The body of the page. Contains scaffold without navigation bar.
+  /// The body of the page.
+  /// Should contains a Scaffold without navigation bar.
   final Widget body;
 
   @override
@@ -30,49 +30,43 @@ class _SharedScaffoldState extends State<SharedScaffold> {
     setState(() => _selectedIndex = widget.selectedIndex);
   }
 
-  void _tap(BuildContext context, int index) {
+  /// Rebuild the BottomNavBar and navigate to the corresponding view/route.
+  void tap(BuildContext context, int index) {
     setState(() => _selectedIndex = index);
-    switch (index) {
-      case 0:
-        context.goNamed(SampleItemListView.routeName);
-        break;
-      case 1:
-        context.goNamed(ChatView.routeName);
-        break;
-      case 2:
-        context.goNamed(WeightTrackerView.routeName);
-        break;
-      default:
-        throw Exception("invalid index");
-    }
+    context.goNamed(AppRouter.getNamedLocationFromIndex(index));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: widget.body,
-      bottomNavigationBar: BottomNavigationBar(
-        // type: BottomNavigationBarType.shifting,
-        // unselectedItemColor: Colors.grey,
-        // selectedItemColor: Colors.blue,
-        currentIndex: _selectedIndex,
-        mouseCursor: SystemMouseCursors.grab,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: "sample list",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: "chat",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.monitor_weight),
-            label: "weight tracker",
-          ),
-        ],
-        onTap: (index) => _tap(context, index),
-      ),
+
+      /// selected index == -1 => navigation outside of the
+      /// bottomNavigationBar stack -> buttonNavigation not visible.
+      bottomNavigationBar: _selectedIndex == -1
+          ? null
+          : BottomNavigationBar(
+              // type: BottomNavigationBarType.shifting,
+              // unselectedItemColor: Colors.grey,
+              // selectedItemColor: Colors.blue,
+              currentIndex: _selectedIndex,
+              mouseCursor: SystemMouseCursors.grab,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.list),
+                  label: "sample list",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.chat),
+                  label: "chat",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.monitor_weight),
+                  label: "weight tracker",
+                ),
+              ],
+              onTap: (index) => tap(context, index),
+            ),
     );
   }
 }

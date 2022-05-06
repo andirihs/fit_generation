@@ -13,16 +13,59 @@ class AppRouter {
 
   final SettingsController settingsController;
 
+  static const homeRoute = 'home';
+  int _lastIndex = 0;
+
+  /// provide namedLocation for every top-view (which is visible in NavBar)
+  /// Must match the order of the NavBarItems
+  static String getNamedLocationFromIndex(int index) {
+    switch (index) {
+      case 0:
+        return SampleItemListView.routeName;
+      case 1:
+        return ChatView.routeName;
+      case 2:
+        return WeightTrackerView.routeName;
+      default:
+        throw Exception("invalid index");
+    }
+  }
+
+  /// Get the BottomNavBar-Index related to the namedLocation.
+  ///
+  /// Return -1 if the route is not part on the bottomNavBar.
+  /// The order must match with the buttonNavBarItems in SharedScaffold.
+  int getSelectedNavBarIndex(String navigationLocation) {
+    int bottomNavIndex = -1;
+    if (navigationLocation.contains(SampleItemListView.routeName)) {
+      bottomNavIndex = 0;
+    } else if (navigationLocation.contains(ChatView.routeName)) {
+      bottomNavIndex = 1;
+    } else if (navigationLocation.contains(WeightTrackerView.routeName)) {
+      bottomNavIndex = 2;
+    }
+
+    /// Store the index to be able to return to the last ButtonNavBarScreen,
+    /// only if the last index pointing to an existing NavBarIndex
+    if (bottomNavIndex >= 0) {
+      _lastIndex = bottomNavIndex;
+    }
+    return bottomNavIndex;
+  }
+
   GoRouter get router {
     return GoRouter(
       routes: <GoRoute>[
         GoRoute(
           path: "/",
-          redirect: (state) =>
-              state.namedLocation(SampleItemListView.routeName),
+          name: homeRoute,
+          redirect: (state) {
+            final namedLocation = getNamedLocationFromIndex(_lastIndex);
+            return state.namedLocation(namedLocation);
+          },
         ),
         GoRoute(
-          path: ChatView.routeName,
+          path: "/" + ChatView.routeName,
           name: ChatView.routeName,
           // builder: (context, state) => const ChatView(),
           pageBuilder: (context, state) => NoTransitionPage(
@@ -32,7 +75,7 @@ class AppRouter {
           ),
         ),
         GoRoute(
-          path: WeightTrackerView.routeName,
+          path: "/" + WeightTrackerView.routeName,
           name: WeightTrackerView.routeName,
           // builder: (context, state) => const WeightTrackerView(),
           pageBuilder: (context, state) => NoTransitionPage(
@@ -42,7 +85,7 @@ class AppRouter {
           ),
         ),
         GoRoute(
-          path: SampleItemListView.routeName,
+          path: "/" + SampleItemListView.routeName,
           name: SampleItemListView.routeName,
           pageBuilder: (context, state) => NoTransitionPage(
             child: const SampleItemListView(),
@@ -51,40 +94,31 @@ class AppRouter {
           ),
           routes: [
             GoRoute(
-              path: SettingsView.routeName,
-              name: SettingsView.routeName,
-              builder: (context, state) => SettingsView(
-                controller: settingsController,
-              ),
-            ),
-            GoRoute(
-              path: SampleItemDetailsView.routeName,
+              path: SampleItemDetailsView.routeName + ":id",
               name: SampleItemDetailsView.routeName,
-              builder: (context, state) => const SampleItemDetailsView(),
+              builder: (context, state) {
+                final id = state.params["id"];
+                return SampleItemDetailsView(id: int.parse(id!));
+              },
             ),
           ],
+        ),
+        GoRoute(
+          path: "/" + SettingsView.routeName,
+          name: SettingsView.routeName,
+          builder: (context, state) => SettingsView(
+            controller: settingsController,
+          ),
         ),
       ],
       restorationScopeId: 'router',
       debugLogDiagnostics: true,
 
       // use the navigatorBuilder to keep the SharedScaffold from being animated
-      // as new pages as shown; wrappiong that in single-page Navigator at the
-      // root provides an Overlay needed for the adaptive navigation scaffold and
-      // a root Navigator to show the About box
+      // as new pages as shown; wrapping that in single-page Navigator at the
+      // root provides an Overlay needed for the SharedScaffold.
       navigatorBuilder: (context, state, child) {
-        int getSelectedIndex(String subLoc) {
-          switch (subLoc) {
-            case SampleItemListView.routeName:
-              return 0;
-            case ChatView.routeName:
-              return 1;
-            case WeightTrackerView.routeName:
-              return 2;
-            default:
-              return 0;
-          }
-        }
+        final navBarIndex = getSelectedNavBarIndex(state.location);
 
         return Navigator(
           /// ToDo: what is this for? See go_router example
@@ -98,9 +132,10 @@ class AppRouter {
               //     ? ErrorScaffold(body: child)
               //     : SharedScaffold(
               child: SharedScaffold(
-                selectedIndex: getSelectedIndex(state.subloc),
+                selectedIndex: navBarIndex,
                 body: child,
               ),
+              restorationId: state.pageKey.value,
             ),
           ],
         );
