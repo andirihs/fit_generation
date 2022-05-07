@@ -61,12 +61,13 @@ class _SharedScaffoldState extends State<SharedScaffold> {
         ),
       ),
 
+      /// https://pub.dev/packages/bubble_bottom_bar
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: const Icon(Icons.add),
         backgroundColor: Colors.red,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
 
       /// selected index == -1 => navigation outside of the
       /// bottomNavigationBar stack -> buttonNavigation not visible.
