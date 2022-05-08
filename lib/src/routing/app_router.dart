@@ -121,7 +121,8 @@ class AppRouter {
         final navBarIndex = getSelectedNavBarIndex(state.location);
 
         return Navigator(
-          /// ToDo: what is this for? See go_router example
+          /// ToDo: what is this for?
+          /// See go_router example: https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/shared_scaffold.dart
           onPopPage: (Route<dynamic> route, dynamic result) {
             route.didPop(result);
             return false; // don't pop the single page on the root navigator

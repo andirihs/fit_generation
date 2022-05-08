@@ -16,20 +16,24 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final canPop = Navigator.of(context).canPop();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        leading: IconButton(
-          icon: Icon(
-            Icons.close,
-            color: Theme.of(context).colorScheme.error,
-          ),
-          onPressed: () {
-            /// queryParam could be added to navigate back to correct path
-            context.goNamed(AppRouter.homeRoute);
-          },
-          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-        ),
+        leading: canPop
+            ? null
+            : IconButton(
+                icon: Icon(
+                  Icons.close,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                onPressed: () {
+                  /// queryParam could be added to navigate back to correct path
+                  context.goNamed(AppRouter.homeRoute);
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

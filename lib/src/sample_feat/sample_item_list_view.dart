@@ -45,7 +45,12 @@ class SampleItemListView extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
+
+            /// push will give a return button
             onPressed: () => context.pushNamed(SettingsView.routeName),
+
+            /// go will give a cancel button
+            // onPressed: () => context.goNamed(SettingsView.routeName),
           ),
         ],
       ),
