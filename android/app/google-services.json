@@ -1,0 +1,170 @@
+{
+  "project_info": {
+    "project_number": "594441871055",
+    "project_id": "fit-generation-app",
+    "storage_bucket": "fit-generation-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594441871055:android:31c2ce96f24ed23288a1ba",
+        "android_client_info": {
+          "package_name": "app.fitgeneration.fit_generation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594441871055-danafuvvvj41egllh0s40hkr6o4fptgn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA304FsZ29v0Hx5iLRrp1pqHR4F0YxnEOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594441871055-danafuvvvj41egllh0s40hkr6o4fptgn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "594441871055-lpihicb1sa3p33tpjo2kr002roilme50.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ch.fitgeneration.fitgenerationapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594441871055:android:16e9d762acc7413488a1ba",
+        "android_client_info": {
+          "package_name": "ch.fit_generation.fit_generation_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594441871055-5fvt20fvr1lhatbvi9pm7j0cnd38brmu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ch.fit_generation.fit_generation_app",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "594441871055-danafuvvvj41egllh0s40hkr6o4fptgn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA304FsZ29v0Hx5iLRrp1pqHR4F0YxnEOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594441871055-danafuvvvj41egllh0s40hkr6o4fptgn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "594441871055-lpihicb1sa3p33tpjo2kr002roilme50.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ch.fitgeneration.fitgenerationapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594441871055:android:164b7f8c9c3829ac88a1ba",
+        "android_client_info": {
+          "package_name": "ch.fitgeneration.fitgenerationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594441871055-admmpkjqkq2as96l4fuqpe3u08g8jo8f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ch.fitgeneration.fitgenerationapp",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "594441871055-danafuvvvj41egllh0s40hkr6o4fptgn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA304FsZ29v0Hx5iLRrp1pqHR4F0YxnEOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594441871055-danafuvvvj41egllh0s40hkr6o4fptgn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "594441871055-lpihicb1sa3p33tpjo2kr002roilme50.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ch.fitgeneration.fitgenerationapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594441871055:android:c4018e39696237e188a1ba",
+        "android_client_info": {
+          "package_name": "com.example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594441871055-danafuvvvj41egllh0s40hkr6o4fptgn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA304FsZ29v0Hx5iLRrp1pqHR4F0YxnEOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594441871055-danafuvvvj41egllh0s40hkr6o4fptgn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "594441871055-lpihicb1sa3p33tpjo2kr002roilme50.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ch.fitgeneration.fitgenerationapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
