@@ -65,34 +65,5 @@ class _SharedScaffoldState extends State<SharedScaffold> {
               onTap: (index) => tap(context, index),
             ),
     );
-    //       : BubbleBottomBar(
-    //           currentIndex: _selectedIndex,
-    //           backgroundColor: Colors.white,
-    //           fabLocation: BubbleBottomBarFabLocation.end,
-    //           items: const [
-    //             BubbleBottomBarItem(
-    //               icon: Icon(Icons.list),
-    //               activeIcon: Icon(Icons.list),
-    //               title: Text('sample list'),
-    //               backgroundColor: Colors.grey,
-    //             ),
-    //             BubbleBottomBarItem(
-    //               icon: Icon(Icons.chat),
-    //               activeIcon: Icon(Icons.chat),
-    //               title: Text('chat'),
-    //               backgroundColor: Colors.grey,
-    //             ),
-    //             BubbleBottomBarItem(
-    //               icon: Icon(Icons.monitor_weight),
-    //               activeIcon: Icon(Icons.monitor_weight),
-    //               title: Text('weight tracker'),
-    //               backgroundColor: Colors.grey,
-    //             ),
-    //           ],
-    //           onTap: (index) => tap(context, index!),
-    //           // onTab: (index) => tap(context, index),
-    //           opacity: 1,
-    //         ),
-    // );
   }
 }
