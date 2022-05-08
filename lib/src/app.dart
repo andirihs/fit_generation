@@ -1,3 +1,4 @@
+import 'package:fit_generation/src/app_theming.dart';
 import 'package:fit_generation/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -66,8 +67,8 @@ class _MyAppState extends State<MyApp> with RestorationMixin {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: ThemeData(),
-          darkTheme: ThemeData.dark(),
+          theme: AppTheme.getLightThemeData(),
+          darkTheme: AppTheme.getDarkThemeData(),
           themeMode: widget.settingsController.themeMode,
           routerDelegate: _router.routerDelegate,
           routeInformationParser: _router.routeInformationParser,
