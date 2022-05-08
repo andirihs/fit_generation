@@ -14,7 +14,6 @@ class AppRouter {
   final SettingsController settingsController;
 
   static const homeRoute = 'home';
-  int _lastIndex = 0;
 
   /// provide namedLocation for every top-view (which is visible in NavBar)
   /// Must match the order of the NavBarItems
@@ -45,11 +44,6 @@ class AppRouter {
       bottomNavIndex = 2;
     }
 
-    /// Store the index to be able to return to the last ButtonNavBarScreen,
-    /// only if the last index pointing to an existing NavBarIndex
-    if (bottomNavIndex >= 0) {
-      _lastIndex = bottomNavIndex;
-    }
     return bottomNavIndex;
   }
 
@@ -60,63 +54,51 @@ class AppRouter {
           path: "/",
           name: homeRoute,
           redirect: (state) {
-            final namedLocation = getNamedLocationFromIndex(_lastIndex);
-            return state.namedLocation(namedLocation);
+            // final namedLocation = getNamedLocationFromIndex(_lastIndex);
+            // return state.namedLocation(SampleItemListView.routeName);
+            return "/" + SampleItemListView.routeName;
           },
         ),
         GoRoute(
-          path: "/" + ChatView.routeName,
-          name: ChatView.routeName,
-          // builder: (context, state) => const ChatView(),
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: const ChatView(),
-            key: state.pageKey,
-            restorationId: state.pageKey.value,
-          ),
-        ),
-        GoRoute(
-          path: "/" + WeightTrackerView.routeName,
-          name: WeightTrackerView.routeName,
-          // builder: (context, state) => const WeightTrackerView(),
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: const WeightTrackerView(),
-            key: state.pageKey,
-            restorationId: state.pageKey.value,
-          ),
-        ),
-        GoRoute(
-          path: "/" + SampleItemListView.routeName,
-          name: SampleItemListView.routeName,
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: const SampleItemListView(),
-            key: state.pageKey,
-            restorationId: state.pageKey.value,
-          ),
+          path: "/:navBarName",
+          name: SharedScaffold.routeName,
+          builder: (context, state) {
+            final index = getSelectedNavBarIndex(state.params["navBarName"]!);
+
+            return SharedScaffold(
+              /// provide null for main SharedScaffold
+              body: null,
+              selectedIndex: index,
+              key: state.pageKey,
+            );
+          },
           routes: [
             GoRoute(
-              path: SampleItemDetailsView.routeName + ":id",
+              path: SampleItemDetailsView.routeName + "/:id",
               name: SampleItemDetailsView.routeName,
               builder: (context, state) {
                 final id = state.params["id"];
                 return SampleItemDetailsView(id: int.parse(id!));
               },
             ),
+            GoRoute(
+              path: SettingsView.routeName,
+              name: SettingsView.routeName,
+              builder: (context, state) => SettingsView(
+                controller: settingsController,
+              ),
+            ),
           ],
-        ),
-        GoRoute(
-          path: "/" + SettingsView.routeName,
-          name: SettingsView.routeName,
-          builder: (context, state) => SettingsView(
-            controller: settingsController,
-          ),
         ),
       ],
       restorationScopeId: 'router',
       debugLogDiagnostics: true,
 
-      // use the navigatorBuilder to keep the SharedScaffold from being animated
-      // as new pages as shown; wrapping that in single-page Navigator at the
-      // root provides an Overlay needed for the SharedScaffold.
+      /// Use the navigatorBuilder to keep the SharedScaffold from being animated
+      /// as new pages as shown; wrapping that in single-page Navigator at the
+      /// root provides an Overlay needed for the SharedScaffold.
+      ///
+      /// Remove this, if you don't want to have buttonNavBar for subpages
       navigatorBuilder: (context, state, child) {
         final navBarIndex = getSelectedNavBarIndex(state.location);
 

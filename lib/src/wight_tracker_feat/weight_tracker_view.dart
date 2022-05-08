@@ -16,11 +16,17 @@ class WeightTrackerView extends StatelessWidget {
           children: [
             ElevatedButton(
               child: const Text("push to settings"),
-              onPressed: () => context.pushNamed(SettingsView.routeName),
+              onPressed: () => context.pushNamed(
+                SettingsView.routeName,
+                params: {"navBarName": routeName},
+              ),
             ),
             ElevatedButton(
               child: const Text("go to settings"),
-              onPressed: () => context.goNamed(SettingsView.routeName),
+              onPressed: () => context.goNamed(
+                SettingsView.routeName,
+                params: {"navBarName": routeName},
+              ),
             ),
           ],
         ),

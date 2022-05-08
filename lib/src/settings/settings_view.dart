@@ -1,7 +1,5 @@
-import 'package:fit_generation/src/routing/app_router.dart';
 import 'package:fit_generation/src/settings/settings_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 /// Displays the various settings that can be customized by the user.
 ///
@@ -19,17 +17,17 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        leading: IconButton(
-          icon: Icon(
-            Icons.close,
-            color: Theme.of(context).colorScheme.error,
-          ),
-          onPressed: () {
-            /// queryParam could be added to navigate back to correct path
-            context.goNamed(AppRouter.homeRoute);
-          },
-          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-        ),
+        // leading: IconButton(
+        //   icon: Icon(
+        //     Icons.close,
+        //     color: Theme.of(context).colorScheme.error,
+        //   ),
+        //   onPressed: () {
+        //     /// queryParam could be added to navigate back to correct path
+        //     context.goNamed(AppRouter.homeRoute);
+        //   },
+        //   tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+        // ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

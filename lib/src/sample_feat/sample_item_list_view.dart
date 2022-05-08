@@ -45,7 +45,10 @@ class SampleItemListView extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () => context.pushNamed(SettingsView.routeName),
+            onPressed: () => context.pushNamed(
+              SettingsView.routeName,
+              params: {"navBarName": routeName},
+            ),
           ),
         ],
       ),
@@ -53,7 +56,7 @@ class SampleItemListView extends StatelessWidget {
         /// Providing a restorationId allows the ListView to restore the
         /// scroll position when a user leaves and returns to the app after it
         /// has been killed while running in the background.
-        // ToDo: not working/
+        // ToDo: restoration not working
         restorationId: 'sampleItemListView',
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
@@ -65,9 +68,16 @@ class SampleItemListView extends StatelessWidget {
               foregroundImage:
                   AssetImage('assets/logo/Logo_Fit-Generation.png'),
             ),
+            // onTap: () => context.goNamed(
+            //   SampleItemDetailsView.routeName,
+            //   params: {"id": "${item.id}"},
+            // ),
             onTap: () => context.goNamed(
               SampleItemDetailsView.routeName,
-              params: {"id": "${item.id}"},
+              params: {
+                "navBarName": routeName,
+                "id": "${item.id}",
+              },
             ),
           );
         },
