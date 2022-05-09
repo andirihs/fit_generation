@@ -41,29 +41,54 @@ class _SharedScaffoldState extends State<SharedScaffold> {
     return Scaffold(
       body: widget.body,
 
+      // floatingActionButton: FloatingActionButton(onPressed: () {}),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+
       /// selected index == -1 => navigation outside of the
       /// bottomNavigationBar stack -> buttonNavigation not visible.
       bottomNavigationBar: _selectedIndex == -1
           ? null
-          : BottomNavigationBar(
-              currentIndex: _selectedIndex,
-              mouseCursor: SystemMouseCursors.grab,
-              items: const [
-                BottomNavigationBarItem(
+          : NavigationBar(
+              backgroundColor: Theme.of(context).backgroundColor,
+              labelBehavior:
+                  NavigationDestinationLabelBehavior.onlyShowSelected,
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: (index) => tap(context, index),
+              destinations: const [
+                NavigationDestination(
                   icon: Icon(Icons.list),
                   label: "sample list",
                 ),
-                BottomNavigationBarItem(
+                NavigationDestination(
                   icon: Icon(Icons.chat),
                   label: "chat",
                 ),
-                BottomNavigationBarItem(
+                NavigationDestination(
                   icon: Icon(Icons.monitor_weight),
                   label: "weight tracker",
                 ),
               ],
-              onTap: (index) => tap(context, index),
             ),
+
+      // BottomNavigationBar(
+      //   currentIndex: _selectedIndex,
+      //   mouseCursor: SystemMouseCursors.grab,
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.list),
+      //       label: "sample list",
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.chat),
+      //       label: "chat",
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.monitor_weight),
+      //       label: "weight tracker",
+      //     ),
+      //   ],
+      //  onTap: (index) => tap(context, index),
+      // ),
     );
   }
 }
