@@ -8,6 +8,8 @@ POC for fit-generation
 - [Project Description](#project-description)
 - [Getting started](#getting-started)
 - [Navigation](#navigation) 
+  - [Deep Linking](#deeplinking)
+  - [Navigation state restoration](#navigation-state-restoration) 
 - [Assets](#assets)
 - [Localization](#localization)
 - [Firebase](#firebase)
@@ -112,6 +114,25 @@ iOS use [Universal Links][17] which work similar to "App Links" on Android. Olde
 use "customScheme".
 
 You could check if an url is a "universal link" using [apple validation tool][18]
+
+#### Navigation state restoration
+
+GoRouter don't support multiple navigation stacks: [open issue](https://github.com/flutter/flutter/issues/99126)
+
+State Restoration allows the Navigator to restore the navigation stack when a user leaves and
+returns to the app after it has been killed while running in the background. This is not limited to
+navigation and also be used for storing the state of a list for example.
+
+[Read more](https://medium.com/flutter-community/flutter-state-restoration-restore-scrollviews-and-textfields-d1d35cbd878c)
+
+To store a state we must add a ``RootRestorationScope`` into ``runApp()`` and extend  
+the MainAppState as follow: ``class _MainAppState extends State<MainApp> with RestorationMixin``.
+Then add a ``restorationScopeId`` to MaterialApp and every GoRouter route (not needed when
+using ``builder()``).
+
+[GoRouter Example App](https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/state_restoration.dart)
+
+Not Working currently: To store the state of a listView, add a ``restorationScopeId`` to the ``ListView.builder`` methode.
 
 ## Assets
 
