@@ -1,3 +1,6 @@
+import 'package:fit_generation/src/auth_feat/auth_repo.dart';
+import 'package:fit_generation/src/auth_feat/auth_view.dart';
+import 'package:fit_generation/src/auth_feat/profile_view.dart';
 import 'package:fit_generation/src/chat_feat/chat_view.dart';
 import 'package:fit_generation/src/sample_feat/sample_item_details_view.dart';
 import 'package:fit_generation/src/sample_feat/sample_item_list_view.dart';
@@ -7,11 +10,13 @@ import 'package:fit_generation/src/shared_scaffold.dart';
 import 'package:fit_generation/src/wight_tracker_feat/weight_tracker_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AppRouter {
-  AppRouter({required this.settingsController});
+  AppRouter({required this.settingsController, required this.reader});
 
   final SettingsController settingsController;
+  final Reader reader;
 
   static const homeRoute = 'home';
   int _lastIndex = 0;
@@ -59,6 +64,7 @@ class AppRouter {
         GoRoute(
           path: "/",
           name: homeRoute,
+          // builder: (_, __) => const AuthView(),
           redirect: (state) {
             final namedLocation = getNamedLocationFromIndex(_lastIndex);
             return state.namedLocation(namedLocation);
@@ -67,7 +73,6 @@ class AppRouter {
         GoRoute(
           path: "/" + ChatView.routeName,
           name: ChatView.routeName,
-          // builder: (context, state) => const ChatView(),
           pageBuilder: (context, state) => NoTransitionPage(
             child: const ChatView(),
             key: state.pageKey,
@@ -77,7 +82,6 @@ class AppRouter {
         GoRoute(
           path: "/" + WeightTrackerView.routeName,
           name: WeightTrackerView.routeName,
-          // builder: (context, state) => const WeightTrackerView(),
           pageBuilder: (context, state) => NoTransitionPage(
             child: const WeightTrackerView(),
             key: state.pageKey,
@@ -106,13 +110,45 @@ class AppRouter {
         GoRoute(
           path: "/" + SettingsView.routeName,
           name: SettingsView.routeName,
-          builder: (context, state) => SettingsView(
+          builder: (_, __) => SettingsView(
             controller: settingsController,
           ),
+        ),
+        GoRoute(
+          path: "/" + AuthView.routeName,
+          name: AuthView.routeName,
+          builder: (_, __) => const AuthView(),
+        ),
+        GoRoute(
+          path: "/" + ProfileView.routeName,
+          name: ProfileView.routeName,
+          builder: (_, __) => const ProfileView(),
         ),
       ],
       restorationScopeId: 'router',
       debugLogDiagnostics: true,
+
+      /// Changes on the listenable will cause the router to refresh it's route
+      refreshListenable: GoRouterRefreshStream(
+        reader(authRepoProvider).authStageChanges(),
+      ),
+
+      redirect: (state) {
+        final isUserSignedIn = reader(authRepoProvider).isUserLoggedIn();
+        final signingIn = state.subloc == "/" + AuthView.routeName;
+
+        /// Go to /login if the user is not signed in
+        if (!isUserSignedIn && !signingIn) {
+          return state.namedLocation(AuthView.routeName);
+        }
+
+        if (isUserSignedIn && signingIn) {
+          return state.namedLocation(SampleItemListView.routeName);
+        }
+
+        /// return null => no redirect
+        return null;
+      },
 
       // use the navigatorBuilder to keep the SharedScaffold from being animated
       // as new pages as shown; wrapping that in single-page Navigator at the

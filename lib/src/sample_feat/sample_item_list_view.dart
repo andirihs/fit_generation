@@ -1,3 +1,4 @@
+import 'package:fit_generation/src/auth_feat/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -52,13 +53,22 @@ class SampleItemListView extends StatelessWidget {
             /// go will give a cancel button
             // onPressed: () => context.goNamed(SettingsView.routeName),
           ),
+          IconButton(
+            icon: const Icon(Icons.person),
+
+            /// push will give a return button
+            onPressed: () => context.pushNamed(ProfileView.routeName),
+
+            /// go will give a cancel button
+            // onPressed: () => context.goNamed(ProfileView.routeName),
+          ),
         ],
       ),
       body: ListView.builder(
         /// Providing a restorationId allows the ListView to restore the
         /// scroll position when a user leaves and returns to the app after it
         /// has been killed while running in the background.
-        // ToDo: not working/
+        // ToDo: not working
         restorationId: 'sampleItemListView',
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {

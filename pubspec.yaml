@@ -22,9 +22,8 @@ dependencies:
   cloud_firestore: ^3.1.14
   # https://pub.dev/packages/firebase_auth/changelog
   firebase_auth: ^3.3.17
-
-  # https://pub.dev/packages/stream_chat_flutter
-  stream_chat_flutter: ^4.0.1
+  # https://pub.dev/packages/firebase_analytics
+  firebase_analytics: ^9.1.7
 
   # https://pub.dev/packages/hooks_riverpod
   hooks_riverpod: ^2.0.0-dev.5
@@ -52,6 +51,11 @@ dependencies:
 
   # https://pub.dev/packages/flex_color_scheme
   flex_color_scheme: ^5.0.1
+
+  # https://pub.dev/packages/stream_chat_flutter
+  stream_chat_flutter: ^4.0.1
+
+  flutterfire_ui: ^0.4.0+5
 
 dev_dependencies:
   flutter_test:

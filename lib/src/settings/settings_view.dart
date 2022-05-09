@@ -1,7 +1,6 @@
-import 'package:fit_generation/src/routing/app_router.dart';
 import 'package:fit_generation/src/settings/settings_controller.dart';
+import 'package:fit_generation/src/util_widget/pop_handle_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 /// Displays the various settings that can be customized by the user.
 ///
@@ -16,24 +15,10 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final canPop = Navigator.of(context).canPop();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        leading: canPop
-            ? null
-            : IconButton(
-                icon: Icon(
-                  Icons.close,
-                  color: Theme.of(context).colorScheme.error,
-                ),
-                onPressed: () {
-                  /// queryParam could be added to navigate back to correct path
-                  context.goNamed(AppRouter.homeRoute);
-                },
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              ),
+        leading: getCancelWidgetIfPopNotPossible(context: context),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

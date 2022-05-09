@@ -3,12 +3,13 @@ import 'package:fit_generation/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import 'settings/settings_controller.dart';
 
 /// The Widget that configures your application.
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({
     required this.settingsController,
     required this.chatClient,
@@ -25,11 +26,11 @@ class MyApp extends StatefulWidget {
   final StreamChatClient chatClient;
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  ConsumerState<MyApp> createState() => _MyAppState();
 }
 
 /// RestorationMixin -> https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/state_restoration.dart
-class _MyAppState extends State<MyApp> with RestorationMixin {
+class _MyAppState extends ConsumerState<MyApp> with RestorationMixin {
   @override
   String get restorationId => 'wrapper';
 
@@ -39,8 +40,10 @@ class _MyAppState extends State<MyApp> with RestorationMixin {
     // todo: implement restoreState for you app
   }
 
-  late final _router =
-      AppRouter(settingsController: widget.settingsController).router;
+  late final _router = AppRouter(
+    settingsController: widget.settingsController,
+    reader: ref.read,
+  ).router;
 
   @override
   Widget build(BuildContext context) {
