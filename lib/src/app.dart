@@ -3,14 +3,26 @@ import 'package:fit_generation/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import 'settings/settings_controller.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key, required this.settingsController}) : super(key: key);
+  const MyApp({
+    required this.settingsController,
+    required this.chatClient,
+    Key? key,
+  }) : super(key: key);
 
   final SettingsController settingsController;
+
+  /// Instance of Stream Client.
+  ///
+  /// Stream's [StreamChatClient] can be used to connect to our servers and
+  /// set the default user for the application. Performing these actions
+  /// trigger a websocket connection allowing for real-time updates.
+  final StreamChatClient chatClient;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -72,6 +84,13 @@ class _MyAppState extends State<MyApp> with RestorationMixin {
           themeMode: widget.settingsController.themeMode,
           routerDelegate: _router.routerDelegate,
           routeInformationParser: _router.routeInformationParser,
+          builder: (context, child) {
+            /// ToDo: Provide stream chat using inherited widget?
+            return StreamChat(
+              child: child,
+              client: widget.chatClient,
+            );
+          },
         );
       },
     );
