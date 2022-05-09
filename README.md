@@ -7,8 +7,12 @@ POC for fit-generation
 - [Table of content](#table-of-content)
 - [Project Description](#project-description)
 - [Getting started](#getting-started)
+- [Navigation](#navigation) 
 - [Assets](#assets)
 - [Localization](#localization)
+- [Firebase](#firebase)
+   - [Firebase UI](#flutterfireui)
+   - [Firebase Auth](#firebase-auth)
 
 ## Project Description
 
@@ -73,6 +77,42 @@ Until now, normal Material style is applied. There are packages to enhance the l
 Simple: [bottom_navy_bar](https://pub.dev/packages/bottom_navy_bar)
 With Action Button [bubble_bottom_bar](https://pub.dev/packages/bubble_bottom_bar)
 
+#### DeepLinking
+GoRouter support Deep-Links out of the box, but you need to enable on iOS/Android: 
+
+[Android manifest](/android/app/src/main/AndroidManifest.xml).
+
+```
+  <meta-data
+      android:name="flutter_deeplinking_enabled"
+      android:value="true" />
+```
+
+[ios -> info.plist](ios/Runner/Info.plist)
+
+``` 
+<key>FlutterDeepLinkingEnabled</key>
+	<true/>
+```
+
+On Android:
+Android use "App Links" which works similar to "Universal links" on iOS If the app is installed a
+bottomSheet will let you decide between opening in app or mobile browser. If the app isn't
+installed, the link will open in mobile browser.
+
+Social-Media preview Tags and images come out of the box from [index.html](web/index.html)
+
+```
+<title>dedeApp</title>
+<meta name="description" content="Create and share wishlist easy and cost free">
+```
+
+On iOS:  
+iOS use [Universal Links][17] which work similar to "App Links" on Android. Older iOS Version (<9)
+use "customScheme".
+
+You could check if an url is a "universal link" using [apple validation tool][18]
+
 ## Assets
 
 The `assets` directory houses images, fonts, and any other files you want to include with your
@@ -89,3 +129,28 @@ directory.
 
 To support additional languages, please visit the tutorial on
 [Internationalizing Flutter apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+
+## Firebase
+
+#### FlutterFireUI
+Used Flutter UI for SignIn. 
+This handles all the auth logic incl. reading the magic link using FirebaseDynamicLinks out of the box. 
+**!! Sadly the [profile page](lib/src/auth_feat/profile_view.dart) is not working correctly !!**
+
+ToDo: enable hosting to read magic-links on desktop and show some meaningful content.  
+For example -> "open this link with your mobile phone"
+
+#### Firebase Auth
+Auth Logic which is not handled by the FlutterFireUI is located in [auth_repo.dart](lib/src/auth_feat/auth_repo.dart)
+
+Test Login using **Magic-Link**: 
+- Android: 
+```
+adb shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d {magic-link} 
+```
+
+- iOS:
+To test deeplink on iOS on Simulator you need to user *customscheme* as follow:
+```
+xcrun simctl openurl booted app.fitgeneration.fitGeneration:{magic-link w/o https}
+```
