@@ -7,6 +7,8 @@ POC for fit-generation
 - [Table of content](#table-of-content)
 - [Project Description](#project-description)
 - [Getting started](#getting-started)
+- [Git](#git)
+  - [commit rules](#commit-rules)
 - [Navigation](#navigation) 
   - [Deep Linking](#deeplinking)
   - [Navigation state restoration](#navigation-state-restoration) 
@@ -30,6 +32,26 @@ This app acts as POC to show how to implement:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials, samples, guidance on
 mobile development, and a full API reference.
+
+## Git
+[Git repo](https://github.com/andirihs/fit_generation) 
+[git project](https://github.com/users/andirihs/projects/2/views/1)
+
+#### Commit rules
+
+To be able to generate a changelog-file out of commit messages, you need write messages as follow:
+
+<"type">: <"short summary"> ─⫸ Summary in present tense. Not capitalized. No period at the end.   
+│  
+└─⫸ Commit Type: build|docs|feat|fix|perf|refactor|test
+
+build: Changes that affect the build system or external dependencies  
+docs: Changes to documentation  
+feat: A new feature  
+fix: A bug fix  
+ref: Refactoring production code; no function change  
+perf: Performance improvements  
+test: Adding tests, refactoring test; no production code change
 
 ## Navigation
 
@@ -152,6 +174,7 @@ To support additional languages, please visit the tutorial on
 [Internationalizing Flutter apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
 
 ## Firebase
+[firebase console](https://console.firebase.google.com/u/0/project/fit-generation-app/overview) 
 
 #### FlutterFireUI
 Used Flutter UI for SignIn. 
