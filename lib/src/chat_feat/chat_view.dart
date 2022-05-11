@@ -10,29 +10,48 @@ class ChatView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final chatChannel = ref.watch(chatCredentialModel);
+    final chatRepo = ref.watch(chatRepoFutureProvider);
+    // final chatChannel = ref.watch(chatCredentialModel);
 
-    return StreamChannel(
-      channel: chatChannel.channel,
-      child: Builder(builder: (context) {
-        return Scaffold(
-          appBar: const StreamChannelHeader(
-            title: Text("Chat"),
-            showBackButton: false,
-            showConnectionStateTile: true,
-            showTypingIndicator: true,
-            // actions: [StreamChannelAvatar(channel: chatChannel.channel)],
-          ),
-          body: Column(
-            children: const <Widget>[
-              Expanded(
-                child: StreamMessageListView(),
+    return chatRepo.when(
+      data: (data) {
+        return StreamChannel(
+          channel: data.streamChatChannel,
+          child: Builder(builder: (context) {
+            return Scaffold(
+              appBar: const StreamChannelHeader(
+                title: Text("Chat"),
+                showBackButton: false,
+                showConnectionStateTile: true,
+                showTypingIndicator: true,
+                // elevation: 0,
+                // actions: [StreamChannelAvatar(channel: chatChannel.channel)],
               ),
-              StreamMessageInput(),
-            ],
-          ),
+              body: Column(
+                children: const <Widget>[
+                  Expanded(
+                    child: StreamMessageListView(),
+                  ),
+                  StreamMessageInput(),
+                ],
+              ),
+            );
+          }),
         );
-      }),
+      },
+      error: (error, st) => Center(
+        child: Text(
+          error.toString(),
+          style: const TextStyle(color: Colors.red),
+        ),
+      ),
+      loading: () => const Center(
+        child: SizedBox(
+          child: CircularProgressIndicator(),
+          width: 40,
+          height: 40,
+        ),
+      ),
     );
   }
 }

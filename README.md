@@ -177,7 +177,8 @@ To support additional languages, please visit the tutorial on
 [firebase console](https://console.firebase.google.com/u/0/project/fit-generation-app/overview) 
 
 #### FlutterFireUI
-Used Flutter UI for SignIn. 
+[Flutter-ui showcase](https://flutterfire-ui.web.app/#/)  
+
 This handles all the auth logic incl. reading the magic link using FirebaseDynamicLinks out of the box. 
 **!! Sadly the [profile page](lib/src/auth_feat/profile_view.dart) is not working correctly !!**
 

@@ -6,6 +6,7 @@ import 'package:fit_generation/src/settings/settings_controller.dart';
 import 'package:fit_generation/src/settings/settings_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +15,12 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final steamChatModel = await ChatRepo.initSteamChat();
+  final streamChatClient = StreamChatClient(
+    'cb2e82d3hkf8',
+    logLevel: Level.INFO,
+  );
+
+  // final steamChatModel = await ChatRepo.initSteamChat();
 
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
@@ -35,11 +41,12 @@ void main() async {
         restorationId: 'root',
         child: MyApp(
           settingsController: settingsController,
-          chatClient: steamChatModel.client,
+          // chatClient: steamChatModel.client,
+          chatClient: streamChatClient,
         ),
       ),
       observers: [ProvObserver()],
-      overrides: [chatCredentialModel.overrideWithValue(steamChatModel)],
+      overrides: [streamChatClientProvider.overrideWithValue(streamChatClient)],
     ),
   );
 }

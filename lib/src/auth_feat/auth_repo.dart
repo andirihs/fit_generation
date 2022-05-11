@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final authRepoProvider = Provider.autoDispose<IAuthRepo>((ref) {
+final authRepoProvider = Provider<IAuthRepo>((ref) {
   return FirebaseAuthRepo();
 });
 
 abstract class IAuthRepo {
   Stream<String?> authStageChanges();
+
+  String? currentUserId();
+
+  String? currentUserEmail();
 
   bool isUserLoggedIn();
 }
@@ -42,5 +46,15 @@ class FirebaseAuthRepo implements IAuthRepo {
   @override
   bool isUserLoggedIn() {
     return _authInst.currentUser == null ? false : true;
+  }
+
+  @override
+  String? currentUserId() {
+    return _authInst.currentUser?.uid;
+  }
+
+  @override
+  String? currentUserEmail() {
+    return _authInst.currentUser?.email;
   }
 }
