@@ -15,7 +15,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  #Firebase support
+  flutterfire_ui: ^0.4.0+5
+
+  #Firebase support not really needed as this plugins are part of flutterfire_ui
   # https://pub.dev/packages/firebase_core
   firebase_core: ^1.16.0
   # https://pub.dev/packages/cloud_firestore
@@ -54,8 +56,6 @@ dependencies:
 
   # https://pub.dev/packages/stream_chat_flutter
   stream_chat_flutter: ^4.0.1
-
-  flutterfire_ui: ^0.4.0+5
 
 dev_dependencies:
   flutter_test:
