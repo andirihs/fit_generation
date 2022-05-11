@@ -27,8 +27,8 @@ class ChatView extends ConsumerWidget {
           children: const <Widget>[
             Expanded(
               child: StreamMessageListView(
-                messageBuilder: _messageBuilder,
-              ),
+                  // messageBuilder: _messageBuilder,
+                  ),
             ),
             StreamMessageInput(),
           ],
@@ -52,15 +52,8 @@ Widget _messageBuilder(
 
   return Padding(
     padding: const EdgeInsets.all(5),
-    child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: color,
-        ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(5),
-        ),
-      ),
+    child: Card(
+      color: color,
       child: ListTile(
         title: Text(
           message.text!,
@@ -72,5 +65,6 @@ Widget _messageBuilder(
         ),
       ),
     ),
+    // ),
   );
 }
