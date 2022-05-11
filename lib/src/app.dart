@@ -1,4 +1,5 @@
 import 'package:fit_generation/src/app_theming.dart';
+import 'package:fit_generation/src/chat_feat/chat_repo.dart';
 import 'package:fit_generation/src/routing/app_router.dart';
 import 'package:fit_generation/src/settings/settings_controller.dart';
 import 'package:flutter/material.dart';
@@ -9,20 +10,7 @@ import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 /// The Widget that configures your application.
 class MyApp extends ConsumerStatefulWidget {
-  const MyApp({
-    required this.settingsController,
-    required this.chatClient,
-    Key? key,
-  }) : super(key: key);
-
-  final SettingsController settingsController;
-
-  /// Instance of Stream Client.
-  ///
-  /// Stream's [StreamChatClient] can be used to connect to our servers and
-  /// set the default user for the application. Performing these actions
-  /// trigger a websocket connection allowing for real-time updates.
-  final StreamChatClient chatClient;
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   ConsumerState<MyApp> createState() => _MyAppState();
@@ -39,8 +27,10 @@ class _MyAppState extends ConsumerState<MyApp> with RestorationMixin {
     // todo: implement restoreState for you app
   }
 
+  late final _settingsController = ref.watch(settingsControllerProvider);
+
   late final _router = AppRouter(
-    settingsController: widget.settingsController,
+    settingsController: _settingsController,
     reader: ref.read,
   ).router;
 
@@ -51,7 +41,7 @@ class _MyAppState extends ConsumerState<MyApp> with RestorationMixin {
     // The AnimatedBuilder Widget listens to the SettingsController for changes.
     // Whenever the user updates their settings, the MaterialApp is rebuilt.
     return AnimatedBuilder(
-      animation: widget.settingsController,
+      animation: _settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp.router(
           // Providing a restorationScopeId allows the Navigator built by the
@@ -83,14 +73,14 @@ class _MyAppState extends ConsumerState<MyApp> with RestorationMixin {
           // SettingsController to display the correct theme.
           theme: AppTheme.getLightThemeData(),
           darkTheme: AppTheme.getDarkThemeData(),
-          themeMode: widget.settingsController.themeMode,
+          themeMode: _settingsController.themeMode,
           routerDelegate: _router.routerDelegate,
           routeInformationParser: _router.routeInformationParser,
           builder: (context, child) {
-            /// ToDo: Provide stream chat using inherited widget?
+            /// Provide stream chat to inherited widget!!
             return StreamChat(
               child: child,
-              client: widget.chatClient,
+              client: ref.watch(streamChatClientProvider),
             );
           },
         );

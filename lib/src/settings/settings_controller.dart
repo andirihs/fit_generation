@@ -1,5 +1,9 @@
 import 'package:fit_generation/src/settings/settings_service.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final settingsControllerProvider = ChangeNotifierProvider<SettingsController>(
+    (ref) => throw UnimplementedError());
 
 /// A class that many Widgets can interact with to read user settings, update
 /// user settings, or listen to user settings changes.

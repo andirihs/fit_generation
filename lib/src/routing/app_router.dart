@@ -1,6 +1,7 @@
 import 'package:fit_generation/src/auth_feat/auth_repo.dart';
 import 'package:fit_generation/src/auth_feat/auth_view.dart';
 import 'package:fit_generation/src/auth_feat/profile_view.dart';
+import 'package:fit_generation/src/chat_feat/channel_list_view.dart';
 import 'package:fit_generation/src/chat_feat/chat_view.dart';
 import 'package:fit_generation/src/sample_feat/sample_item_details_view.dart';
 import 'package:fit_generation/src/sample_feat/sample_item_list_view.dart';
@@ -28,7 +29,7 @@ class AppRouter {
       case 0:
         return SampleItemListView.routeName;
       case 1:
-        return ChatView.routeName;
+        return ChannelView.routeName;
       case 2:
         return WeightTrackerView.routeName;
       default:
@@ -44,7 +45,7 @@ class AppRouter {
     int bottomNavIndex = -1;
     if (navigationLocation.contains(SampleItemListView.routeName)) {
       bottomNavIndex = 0;
-    } else if (navigationLocation.contains(ChatView.routeName)) {
+    } else if (navigationLocation.contains(ChannelView.routeName)) {
       bottomNavIndex = 1;
     } else if (navigationLocation.contains(WeightTrackerView.routeName)) {
       bottomNavIndex = 2;
@@ -64,20 +65,26 @@ class AppRouter {
         GoRoute(
           path: "/",
           name: homeRoute,
-          // builder: (_, __) => const AuthView(),
           redirect: (state) {
             final namedLocation = getNamedLocationFromIndex(_lastIndex);
             return state.namedLocation(namedLocation);
           },
         ),
         GoRoute(
-          path: "/" + ChatView.routeName,
-          name: ChatView.routeName,
+          path: "/" + ChannelView.routeName,
+          name: ChannelView.routeName,
           pageBuilder: (context, state) => NoTransitionPage(
-            child: const ChatView(),
+            child: const ChannelView(),
             key: state.pageKey,
             restorationId: state.pageKey.value,
           ),
+          routes: [
+            GoRoute(
+              path: ChatView.routeName,
+              name: ChatView.routeName,
+              builder: (_, __) => const ChatView(),
+            ),
+          ],
         ),
         GoRoute(
           path: "/" + WeightTrackerView.routeName,

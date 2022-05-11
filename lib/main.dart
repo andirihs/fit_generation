@@ -1,12 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fit_generation/firebase_options.dart';
 import 'package:fit_generation/src/app.dart';
-import 'package:fit_generation/src/chat_feat/chat_repo.dart';
 import 'package:fit_generation/src/settings/settings_controller.dart';
 import 'package:fit_generation/src/settings/settings_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,13 +12,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  final streamChatClient = StreamChatClient(
-    'cb2e82d3hkf8',
-    logLevel: Level.INFO,
-  );
-
-  // final steamChatModel = await ChatRepo.initSteamChat();
 
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
@@ -37,16 +28,14 @@ void main() async {
     /// https://riverpod.dev/docs/getting_started#usage-example-hello-world
     ProviderScope(
       /// https://github.com/csells/go_router/blob/main/go_router/example/lib/state_restoration.dart
-      child: RootRestorationScope(
+      child: const RootRestorationScope(
         restorationId: 'root',
-        child: MyApp(
-          settingsController: settingsController,
-          // chatClient: steamChatModel.client,
-          chatClient: streamChatClient,
-        ),
+        child: MyApp(),
       ),
       observers: [ProvObserver()],
-      overrides: [streamChatClientProvider.overrideWithValue(streamChatClient)],
+      overrides: [
+        settingsControllerProvider.overrideWithValue(settingsController),
+      ],
     ),
   );
 }

@@ -2,12 +2,31 @@ import 'package:fit_generation/src/auth_feat/auth_repo.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
-// must be override when starting application
-final streamChatClientProvider = Provider<StreamChatClient>((ref) {
-  throw UnimplementedError();
-});
+const defaultChannelType = "dev";
+const defaultChannelId = "!members-Kkqo_kW_XP4z_ApZHzRKNrxtw1EfRtvY6ARYxBWIzH0";
+const streamChatApiKey = "cb2e82d3hkf8";
 
-final chatRepoFutureProvider = FutureProvider<ChatRepo>((ref) async {
+/// Instance of Stream Client.
+///
+/// Stream's [StreamChatClient] can be used to connect to our servers and
+/// set the default user for the application. Performing these actions
+/// trigger a websocket connection allowing for real-time updates.
+final streamChatClientProvider = Provider<StreamChatClient>((ref) {
+  return StreamChatClient(streamChatApiKey, logLevel: Level.INFO);
+}, name: "streamChatClientProvider");
+
+/// Return default channel until the state will be overridden like:
+/// ```
+/// ref.read(currentStreamChannelProvider.notifier).state = channel;
+/// ```
+final currentStreamChannelProvider = StateProvider<Channel>((ref) {
+  final client = ref.watch(streamChatClientProvider);
+  return Channel(client, defaultChannelType, defaultChannelId);
+}, name: "currentStreamChannelProvider");
+
+/// async connect the current user to the streamChatClient.
+/// Do not dispose to have the future value present trough app live
+final initChatFutureProvider = FutureProvider<void>((ref) async {
   final streamChatClient = ref.watch(streamChatClientProvider);
   final currentUserId = ref.watch(authRepoProvider).currentUserId();
   final currentUserEmail = ref.watch(authRepoProvider).currentUserEmail();
@@ -31,34 +50,7 @@ final chatRepoFutureProvider = FutureProvider<ChatRepo>((ref) async {
     guestUser,
     devToken.rawValue,
     // '''eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoic3VwZXItYmFuZC05In0.0L6lGoeLwkz0aZRUcpZKsvaXtNEDHBcezVTZ0oPq40A''',
-    connectWebSocket: true,
   );
 
-  // streamChatClient.connectGuestUser(guestUser);
-
-  /// Creates a channel using the type `messaging` and `flutterdevs`.
-  /// Channels are containers for holding messages between different members. To
-  /// learn more about channels and some of our predefined types, checkout our
-  /// our channel docs: https://getstream.io/chat/docs/flutter-dart/creating_channels/?language=dart
-  /// https://dashboard.getstream.io/app/1184326/chat/explorer?path=channels,dev_channel_type:fit-generation
-  final streamChatChannel =
-      streamChatClient.channel('dev', id: 'fit_generation2');
-
-  /// `.watch()` is used to create and listen to the channel for updates. If the
-  /// channel already exists, it will simply listen for new events.
-  await streamChatChannel.watch();
-
-  // await streamChatChannel.addMembers([guestUser.id]);
-
-  return ChatRepo(
-    streamChatClient: streamChatClient,
-    streamChatChannel: streamChatChannel,
-  );
-}, name: "chatRepoFutureProvider");
-
-class ChatRepo {
-  ChatRepo({required this.streamChatClient, required this.streamChatChannel});
-
-  final StreamChatClient streamChatClient;
-  final Channel streamChatChannel;
-}
+  // return streamChatClient;
+}, name: "initChatFutureProvider");
