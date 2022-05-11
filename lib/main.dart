@@ -60,7 +60,7 @@ class ProvObserver extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    debugPrint(
-        "provider: ${provider.name ?? provider.runtimeType} newValue: $newValue");
+    debugPrint("provider: ${provider.name ?? provider.runtimeType} "
+        "newValue: $newValue");
   }
 }

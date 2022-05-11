@@ -1,12 +1,11 @@
 import 'package:fit_generation/src/app_theming.dart';
 import 'package:fit_generation/src/routing/app_router.dart';
+import 'package:fit_generation/src/settings/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
-
-import 'settings/settings_controller.dart';
 
 /// The Widget that configures your application.
 class MyApp extends ConsumerStatefulWidget {

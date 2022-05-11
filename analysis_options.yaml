@@ -26,7 +26,7 @@ linter:
     prefer_single_quotes: false  # Uncomment to enable the `prefer_single_quotes` rule
     avoid_type_to_string: true
     always_use_package_imports: true
-    public_member_api_docs: true
+    public_member_api_docs: false
     unawaited_futures: true
     unnecessary_constructor_name: true
     unnecessary_late: true
