@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fit_generation/firebase_options.dart';
 import 'package:fit_generation/src/app.dart';
-import 'package:fit_generation/src/settings/settings_controller.dart';
-import 'package:fit_generation/src/settings/settings_service.dart';
+import 'package:fit_generation/src/settings_feat/settings_controller.dart';
+import 'package:fit_generation/src/settings_feat/settings_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

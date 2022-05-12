@@ -1,4 +1,4 @@
-import 'package:fit_generation/src/settings/settings_view.dart';
+import 'package:fit_generation/src/settings_feat/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

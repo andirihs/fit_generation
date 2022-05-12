@@ -1,7 +1,7 @@
 import 'package:fit_generation/src/auth_feat/profile_view.dart';
 import 'package:fit_generation/src/sample_feat/sample_item.dart';
 import 'package:fit_generation/src/sample_feat/sample_item_details_view.dart';
-import 'package:fit_generation/src/settings/settings_view.dart';
+import 'package:fit_generation/src/settings_feat/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

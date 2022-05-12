@@ -1,4 +1,4 @@
-import 'package:fit_generation/src/settings/settings_controller.dart';
+import 'package:fit_generation/src/settings_feat/settings_controller.dart';
 import 'package:fit_generation/src/util_widget/pop_handle_widget.dart';
 import 'package:flutter/material.dart';
 

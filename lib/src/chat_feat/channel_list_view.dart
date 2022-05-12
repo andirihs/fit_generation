@@ -82,8 +82,6 @@ class _ChannelListWidgetState extends ConsumerState<ChannelListWidget> {
     final userId = StreamChat.of(context).currentUser!.id;
     // final streamClient = StreamChat.of(context).client;
 
-    print("current User-Id: $userId");
-
     // streamClient.createChannel("dev", channelData: {
     //   "name": "hello World Dev",
     //   "members": ["$userId", "rLVaJidIGIdtZObO5noZ6ELNHkK2"]
