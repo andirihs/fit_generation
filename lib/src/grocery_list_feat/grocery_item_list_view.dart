@@ -1,12 +1,12 @@
-import 'package:fit_generation/src/sample_feat/sample_item.dart';
-import 'package:fit_generation/src/sample_feat/sample_item_details_view.dart';
-import 'package:fit_generation/src/util_widget/custom_app_bar.dart';
+import 'package:fit_generation/src/grocery_list_feat/grocery_item_details_view.dart';
+import 'package:fit_generation/src/grocery_list_feat/grocery_item_model.dart';
+import 'package:fit_generation/src/util_widget/custom_app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 /// Displays a list of SampleItems.
-class SampleItemListView extends StatelessWidget {
-  const SampleItemListView({
+class GroceryListView extends StatelessWidget {
+  const GroceryListView({
     Key? key,
     this.items = const [
       SampleItem(1),
@@ -32,7 +32,7 @@ class SampleItemListView extends StatelessWidget {
     ],
   }) : super(key: key);
 
-  static const routeName = 'sample_list';
+  static const routeName = 'grocery_list';
 
   final List<SampleItem> items;
 
@@ -57,7 +57,7 @@ class SampleItemListView extends StatelessWidget {
                   AssetImage('assets/logo/Logo_Fit-Generation.png'),
             ),
             onTap: () => context.goNamed(
-              SampleItemDetailsView.routeName,
+              GroceryItemDetailsView.routeName,
               params: {"id": "${item.id}"},
             ),
           );

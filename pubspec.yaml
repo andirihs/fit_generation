@@ -57,6 +57,15 @@ dependencies:
   # https://pub.dev/packages/stream_chat_flutter
   stream_chat_flutter: ^4.0.1
 
+  # https://pub.dev/packages/webview_flutter
+  webview_flutter: ^3.0.4
+
+  # https://pub.dev/packages/fl_chart
+  fl_chart: ^0.50.1
+
+  # https://pub.dev/packages/syncfusion_flutter_charts
+  syncfusion_flutter_charts: ^20.1.55
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

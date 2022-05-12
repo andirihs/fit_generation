@@ -1,3 +1,5 @@
+import 'package:fit_generation/src/chat_feat/chat_view.dart';
+import 'package:fit_generation/src/grocery_list_feat/grocery_item_list_view.dart';
 import 'package:fit_generation/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -56,39 +58,19 @@ class _SharedScaffoldState extends State<SharedScaffold> {
               onDestinationSelected: (index) => tap(context, index),
               destinations: const [
                 NavigationDestination(
-                  icon: Icon(Icons.list),
-                  label: "sample list",
+                  icon: Icon(Icons.home),
+                  label: "home",
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.chat),
-                  label: "chat",
+                  label: ChatView.routeName,
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.monitor_weight),
-                  label: "weight tracker",
+                  icon: Icon(Icons.local_grocery_store),
+                  label: GroceryListView.routeName,
                 ),
               ],
             ),
-
-      // BottomNavigationBar(
-      //   currentIndex: _selectedIndex,
-      //   mouseCursor: SystemMouseCursors.grab,
-      //   items: const [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.list),
-      //       label: "sample list",
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.chat),
-      //       label: "chat",
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.monitor_weight),
-      //       label: "weight tracker",
-      //     ),
-      //   ],
-      //  onTap: (index) => tap(context, index),
-      // ),
     );
   }
 }

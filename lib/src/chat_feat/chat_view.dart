@@ -38,33 +38,33 @@ class ChatView extends ConsumerWidget {
   }
 }
 
-Widget _messageBuilder(
-  BuildContext context,
-  MessageDetails details,
-  List<Message> messages,
-  StreamMessageWidget _,
-) {
-  final message = details.message;
-  final isCurrentUser =
-      StreamChat.of(context).currentUser!.id == message.user!.id;
-  final textAlign = isCurrentUser ? TextAlign.right : TextAlign.left;
-  final color = isCurrentUser ? Colors.blueGrey : Colors.blue;
-
-  return Padding(
-    padding: const EdgeInsets.all(5),
-    child: Card(
-      color: color,
-      child: ListTile(
-        title: Text(
-          message.text!,
-          textAlign: textAlign,
-        ),
-        subtitle: Text(
-          message.user!.name,
-          textAlign: textAlign,
-        ),
-      ),
-    ),
-    // ),
-  );
-}
+// Widget _messageBuilder(
+//   BuildContext context,
+//   MessageDetails details,
+//   List<Message> messages,
+//   StreamMessageWidget _,
+// ) {
+//   final message = details.message;
+//   final isCurrentUser =
+//       StreamChat.of(context).currentUser!.id == message.user!.id;
+//   final textAlign = isCurrentUser ? TextAlign.right : TextAlign.left;
+//   final color = isCurrentUser ? Colors.blueGrey : Colors.blue;
+//
+//   return Padding(
+//     padding: const EdgeInsets.all(5),
+//     child: Card(
+//       color: color,
+//       child: ListTile(
+//         title: Text(
+//           message.text!,
+//           textAlign: textAlign,
+//         ),
+//         subtitle: Text(
+//           message.user!.name,
+//           textAlign: textAlign,
+//         ),
+//       ),
+//     ),
+//     // ),
+//   );
+// }

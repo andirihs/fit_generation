@@ -4,13 +4,14 @@ import 'package:fit_generation/src/auth_feat/onboarding_view.dart';
 import 'package:fit_generation/src/auth_feat/profile_view.dart';
 import 'package:fit_generation/src/chat_feat/channel_list_view.dart';
 import 'package:fit_generation/src/chat_feat/chat_view.dart';
-import 'package:fit_generation/src/sample_feat/sample_item_details_view.dart';
-import 'package:fit_generation/src/sample_feat/sample_item_list_view.dart';
+import 'package:fit_generation/src/grocery_list_feat/grocery_item_details_view.dart';
+import 'package:fit_generation/src/grocery_list_feat/grocery_item_list_view.dart';
+import 'package:fit_generation/src/overview_feat/overview_view.dart';
 import 'package:fit_generation/src/settings_feat/settings_controller.dart';
 import 'package:fit_generation/src/settings_feat/settings_view.dart';
 import 'package:fit_generation/src/shared_scaffold.dart';
 import 'package:fit_generation/src/shared_services/shared_prefs_service.dart';
-import 'package:fit_generation/src/wight_tracker_feat/weight_tracker_view.dart';
+import 'package:fit_generation/src/weight_tracker_feat/weight_tracker_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -29,11 +30,11 @@ class AppRouter {
   static String getNamedLocationFromIndex(int index) {
     switch (index) {
       case 0:
-        return SampleItemListView.routeName;
+        return OverviewView.routeName;
       case 1:
         return ChannelView.routeName;
       case 2:
-        return WeightTrackerView.routeName;
+        return GroceryListView.routeName;
       default:
         throw Exception("invalid index");
     }
@@ -45,11 +46,11 @@ class AppRouter {
   /// The order must match with the buttonNavBarItems in SharedScaffold.
   int getSelectedNavBarIndex(String navigationLocation) {
     int bottomNavIndex = -1;
-    if (navigationLocation.contains(SampleItemListView.routeName)) {
+    if (navigationLocation.contains(OverviewView.routeName)) {
       bottomNavIndex = 0;
     } else if (navigationLocation.contains(ChannelView.routeName)) {
       bottomNavIndex = 1;
-    } else if (navigationLocation.contains(WeightTrackerView.routeName)) {
+    } else if (navigationLocation.contains(GroceryListView.routeName)) {
       bottomNavIndex = 2;
     }
 
@@ -73,6 +74,15 @@ class AppRouter {
           },
         ),
         GoRoute(
+          path: "/" + OverviewView.routeName,
+          name: OverviewView.routeName,
+          pageBuilder: (context, state) => NoTransitionPage(
+            child: const OverviewView(),
+            key: state.pageKey,
+            restorationId: state.pageKey.value,
+          ),
+        ),
+        GoRoute(
           path: "/" + ChannelView.routeName,
           name: ChannelView.routeName,
           pageBuilder: (context, state) => NoTransitionPage(
@@ -89,29 +99,20 @@ class AppRouter {
           ],
         ),
         GoRoute(
-          path: "/" + WeightTrackerView.routeName,
-          name: WeightTrackerView.routeName,
+          path: "/" + GroceryListView.routeName,
+          name: GroceryListView.routeName,
           pageBuilder: (context, state) => NoTransitionPage(
-            child: const WeightTrackerView(),
-            key: state.pageKey,
-            restorationId: state.pageKey.value,
-          ),
-        ),
-        GoRoute(
-          path: "/" + SampleItemListView.routeName,
-          name: SampleItemListView.routeName,
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: const SampleItemListView(),
+            child: const GroceryListView(),
             key: state.pageKey,
             restorationId: state.pageKey.value,
           ),
           routes: [
             GoRoute(
-              path: SampleItemDetailsView.routeName + ":id",
-              name: SampleItemDetailsView.routeName,
+              path: GroceryItemDetailsView.routeName + ":id",
+              name: GroceryItemDetailsView.routeName,
               builder: (context, state) {
                 final id = state.params["id"];
-                return SampleItemDetailsView(id: int.parse(id!));
+                return GroceryItemDetailsView(id: int.parse(id!));
               },
             ),
           ],
@@ -119,9 +120,7 @@ class AppRouter {
         GoRoute(
           path: "/" + SettingsView.routeName,
           name: SettingsView.routeName,
-          builder: (_, __) => SettingsView(
-            controller: settingsController,
-          ),
+          builder: (_, __) => SettingsView(),
         ),
         GoRoute(
           path: "/" + AuthView.routeName,
@@ -134,10 +133,17 @@ class AppRouter {
           builder: (_, __) => const ProfileView(),
         ),
         GoRoute(
-          path: "/" + OnboardingScreen.routeName,
-          name: OnboardingScreen.routeName,
+          path: "/" + OnboardingView.routeName,
+          name: OnboardingView.routeName,
           builder: (_, __) {
-            return const OnboardingScreen();
+            return const OnboardingView();
+          },
+        ),
+        GoRoute(
+          path: "/" + WeightTrackerView.routeName,
+          name: WeightTrackerView.routeName,
+          builder: (_, __) {
+            return WeightTrackerView();
           },
         ),
       ],
@@ -155,9 +161,9 @@ class AppRouter {
         final isUserSignedIn = reader(authRepoProvider).isUserLoggedIn();
         final signingIn = state.subloc == "/" + AuthView.routeName;
 
-        final toOnboarding = state.subloc.contains(OnboardingScreen.routeName);
+        final toOnboarding = state.subloc.contains(OnboardingView.routeName);
         if (!isOnboardingDone && !toOnboarding) {
-          return state.namedLocation(OnboardingScreen.routeName);
+          return state.namedLocation(OnboardingView.routeName);
         } else if (!isOnboardingDone && toOnboarding) {
           return null;
         }
@@ -168,7 +174,7 @@ class AppRouter {
         }
 
         if (isUserSignedIn && signingIn) {
-          return state.namedLocation(SampleItemListView.routeName);
+          return state.namedLocation(GroceryListView.routeName);
         }
 
         /// return null => no redirect

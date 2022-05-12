@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-class OnboardingScreen extends ConsumerWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
+class OnboardingView extends ConsumerWidget {
+  const OnboardingView({Key? key}) : super(key: key);
 
   static const String routeName = "welcome";
 

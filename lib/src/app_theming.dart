@@ -8,6 +8,7 @@ class AppTheme {
     return FlexThemeData.light(
       scheme: FlexScheme.gold,
       appBarStyle: FlexAppBarStyle.background,
+      useMaterial3: true,
     );
   }
 
@@ -15,6 +16,7 @@ class AppTheme {
     return FlexThemeData.dark(
       scheme: FlexScheme.gold,
       appBarStyle: FlexAppBarStyle.background,
+      useMaterial3: true,
     );
   }
 }

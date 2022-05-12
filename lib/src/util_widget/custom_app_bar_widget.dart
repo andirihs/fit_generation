@@ -1,9 +1,5 @@
-import 'package:fit_generation/src/auth_feat/profile_view.dart';
-import 'package:fit_generation/src/localization/i10n.dart';
-import 'package:fit_generation/src/settings_feat/settings_view.dart';
-import 'package:fit_generation/src/wight_tracker_feat/weight_tracker_view.dart';
+import 'package:fit_generation/src/util_widget/menu_bottom_sheet_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -78,8 +74,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 class MenuIconButton extends ConsumerWidget {
   const MenuIconButton({Key? key}) : super(key: key);
 
-  void _onTap(BuildContext context) {
-    showModalBottomSheet(
+  void _onTap(BuildContext context) async {
+    await showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -96,62 +92,6 @@ class MenuIconButton extends ConsumerWidget {
     return IconButton(
       onPressed: () => _onTap(context),
       icon: const Icon(Icons.menu),
-    );
-  }
-}
-
-class MenuBottomSheetWidget extends ConsumerWidget {
-  const MenuBottomSheetWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return SafeArea(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          MenuListTileWidget(
-            title: context.l10n.navMenuWeightTracker,
-            icon: Icons.monitor_weight,
-            namedRoute: WeightTrackerView.routeName,
-          ),
-          MenuListTileWidget(
-            title: context.l10n.navMenuProfile,
-            icon: Icons.person,
-            namedRoute: ProfileView.routeName,
-          ),
-          MenuListTileWidget(
-            title: context.l10n.navMenuSetting,
-            icon: Icons.settings,
-            namedRoute: SettingsView.routeName,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class MenuListTileWidget extends ConsumerWidget {
-  const MenuListTileWidget(
-      {required this.title,
-      required this.icon,
-      required this.namedRoute,
-      Key? key})
-      : super(key: key);
-
-  final String title;
-  final IconData icon;
-  final String namedRoute;
-
-  void _onTap(BuildContext context) {
-    context.goNamed(namedRoute);
-  }
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return ListTile(
-      title: Text(title),
-      leading: Icon(icon),
-      onTap: () => _onTap(context),
     );
   }
 }
