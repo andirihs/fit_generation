@@ -1,5 +1,6 @@
 import 'package:fit_generation/src/auth_feat/auth_repo.dart';
 import 'package:fit_generation/src/auth_feat/auth_view.dart';
+import 'package:fit_generation/src/auth_feat/onboarding_view.dart';
 import 'package:fit_generation/src/auth_feat/profile_view.dart';
 import 'package:fit_generation/src/chat_feat/channel_list_view.dart';
 import 'package:fit_generation/src/chat_feat/chat_view.dart';
@@ -8,6 +9,7 @@ import 'package:fit_generation/src/sample_feat/sample_item_list_view.dart';
 import 'package:fit_generation/src/settings_feat/settings_controller.dart';
 import 'package:fit_generation/src/settings_feat/settings_view.dart';
 import 'package:fit_generation/src/shared_scaffold.dart';
+import 'package:fit_generation/src/shared_services/shared_prefs_service.dart';
 import 'package:fit_generation/src/wight_tracker_feat/weight_tracker_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -131,6 +133,13 @@ class AppRouter {
           name: ProfileView.routeName,
           builder: (_, __) => const ProfileView(),
         ),
+        GoRoute(
+          path: "/" + OnboardingScreen.routeName,
+          name: OnboardingScreen.routeName,
+          builder: (_, __) {
+            return const OnboardingScreen();
+          },
+        ),
       ],
       restorationScopeId: 'router',
       debugLogDiagnostics: true,
@@ -141,8 +150,17 @@ class AppRouter {
       ),
 
       redirect: (state) {
+        final isOnboardingDone =
+            reader(sharedPrefServiceProvider).isOnboardingDone();
         final isUserSignedIn = reader(authRepoProvider).isUserLoggedIn();
         final signingIn = state.subloc == "/" + AuthView.routeName;
+
+        final toOnboarding = state.subloc.contains(OnboardingScreen.routeName);
+        if (!isOnboardingDone && !toOnboarding) {
+          return state.namedLocation(OnboardingScreen.routeName);
+        } else if (!isOnboardingDone && toOnboarding) {
+          return null;
+        }
 
         /// Go to /login if the user is not signed in
         if (!isUserSignedIn && !signingIn) {

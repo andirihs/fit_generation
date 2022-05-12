@@ -1,5 +1,6 @@
 import 'package:fit_generation/src/chat_feat/chat_repo.dart';
 import 'package:fit_generation/src/chat_feat/chat_view.dart';
+import 'package:fit_generation/src/localization/i10n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -77,9 +78,18 @@ class _ChannelListWidgetState extends ConsumerState<ChannelListWidget> {
   }
 
   void _onNewChatTapped() {
+    //ToDo: remove Stream style InfoDialog
+    showInfoDialog(
+      context,
+      title: "Not yet implemented",
+      okText: context.l10nMat.okButtonLabel,
+      details: "You could not add new chats so far. \n"
+          "You could only write in predefined \"hello World Dev\" chat.",
+    );
+
     //ToDo: add dialog or route to create a chat with:
     // name, picture and invite chat-member
-    final userId = StreamChat.of(context).currentUser!.id;
+    // final userId = StreamChat.of(context).currentUser!.id;
     // final streamClient = StreamChat.of(context).client;
 
     // streamClient.createChannel("dev", channelData: {

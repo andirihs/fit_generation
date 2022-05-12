@@ -2,5 +2,7 @@
   "appTitle": "fit_generation",
   "@appTitle": {
     "description": "The title of the application"
-  }
+  },
+  "onboardingScreen1Header": "We help you get your targets done!",
+  "onboardingScreenDoneButtonText": "Done"
 }

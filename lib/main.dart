@@ -3,8 +3,10 @@ import 'package:fit_generation/firebase_options.dart';
 import 'package:fit_generation/src/app.dart';
 import 'package:fit_generation/src/settings_feat/settings_controller.dart';
 import 'package:fit_generation/src/settings_feat/settings_service.dart';
+import 'package:fit_generation/src/shared_services/shared_prefs_client.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +23,8 @@ void main() async {
   // This prevents a sudden theme change when the app is first displayed.
   await settingsController.loadSettings();
 
+  final sharedPreferences = await SharedPreferences.getInstance();
+
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
@@ -35,6 +39,9 @@ void main() async {
       observers: [ProvObserver()],
       overrides: [
         settingsControllerProvider.overrideWithValue(settingsController),
+        sharedPrefClientProvider.overrideWithValue(
+          SharedPreferencesClient(sharedPreferences),
+        ),
       ],
     ),
   );
