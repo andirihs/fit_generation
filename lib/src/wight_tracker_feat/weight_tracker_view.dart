@@ -1,4 +1,5 @@
 import 'package:fit_generation/src/settings_feat/settings_view.dart';
+import 'package:fit_generation/src/util_widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,7 +11,7 @@ class WeightTrackerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("weight tracker")),
+      appBar: const CustomAppBar(title: routeName),
       body: Center(
         child: Column(
           children: [

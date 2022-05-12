@@ -45,6 +45,7 @@ class SettingsView extends StatelessWidget {
               child: Text('Dark Theme'),
             )
           ],
+          icon: Icon(Icons.person),
         ),
       ),
     );
