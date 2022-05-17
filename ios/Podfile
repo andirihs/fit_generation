@@ -37,7 +37,7 @@ target 'Runner' do
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 
     # https://github.com/invertase/firestore-ios-sdk-frameworks#supported-firebase-ios-sdk-versions
-    pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '8.11.0'
+    pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '8.15.0'
 end
 
 post_install do |installer|
