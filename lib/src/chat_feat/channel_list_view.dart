@@ -1,6 +1,5 @@
 import 'package:fit_generation/src/chat_feat/chat_repo.dart';
 import 'package:fit_generation/src/chat_feat/chat_view.dart';
-import 'package:fit_generation/src/localization/i10n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,9 +15,7 @@ class ChannelView extends ConsumerWidget {
     final initStreamChat = ref.watch(initChatFutureProvider);
 
     return initStreamChat.when(
-      data: (_) {
-        return const ChannelListWidget();
-      },
+      data: (_) => const ChannelListWidget(),
       error: (error, _) => Center(
         child: Text(
           error.toString(),
@@ -36,72 +33,18 @@ class ChannelView extends ConsumerWidget {
   }
 }
 
-class ChannelListWidget extends ConsumerStatefulWidget {
+class ChannelListWidget extends ConsumerWidget {
   const ChannelListWidget({Key? key}) : super(key: key);
 
   @override
-  ConsumerState createState() => _ChannelListWidgetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    late final _listController = ref.watch(streamChannelListControllerProvider);
 
-class _ChannelListWidgetState extends ConsumerState<ChannelListWidget> {
-  late final _listController = StreamChannelListController(
-    client: StreamChat.of(context).client,
-    filter: Filter.in_(
-      'members',
-      [StreamChat.of(context).currentUser!.id],
-    ),
-    sort: const [SortOption('last_message_at')],
-    limit: 20,
-  );
-
-  @override
-  void dispose() {
-    _listController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    final userId = StreamChat.of(context).currentUser!.id;
-    final streamClient = StreamChat.of(context).client;
-
-    /// add the current user to the default chat.
-    /// Nothing happened when the user is already in this chat.
-    /// This action use special permission and is therefore only possible
-    /// in channelType: "dev"
-    streamClient.addChannelMembers(
-      defaultChannelId,
-      defaultChannelType,
-      [userId],
-    );
-  }
-
-  void _onNewChatTapped() {
-    //ToDo: remove Stream style InfoDialog
-    showInfoDialog(
-      context,
-      title: "Not yet implemented",
-      okText: context.l10nMat.okButtonLabel,
-      details: "You could not add new chats so far. \n"
-          "You could only write in predefined \"hello World Dev\" chat.",
-    );
-
-    //ToDo: add dialog or route to create a chat with:
-    // name, picture and invite chat-member
-    // final userId = StreamChat.of(context).currentUser!.id;
-    // final streamClient = StreamChat.of(context).client;
-
-    // streamClient.createChannel("dev", channelData: {
-    //   "name": "hello World Dev",
-    //   "members": ["$userId", "rLVaJidIGIdtZObO5noZ6ELNHkK2"]
-    // });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: StreamChannelListHeader(onNewChatButtonTap: _onNewChatTapped),
+      appBar: const StreamChannelListHeader(
+        /// createChatWidget removed with actions: []
+        actions: [],
+      ),
       body: RefreshIndicator(
         onRefresh: _listController.refresh,
         child: StreamChannelListView(
