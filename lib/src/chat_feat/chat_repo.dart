@@ -72,29 +72,30 @@ final initChatFutureProvider = FutureProvider<void>((ref) async {
 
   print("connected streamUser: ${streamUser}");
 
-  /// create and watch new channel which include the trainers
-  /// https://getstream.io/chat/docs/react/creating_channels/?language=dart
-  final channelState = await streamChatClient.channel(
-    kDefaultChannelType,
-    // id: "Fit-Gen_${streamUser.name.substring(0, streamUser.name.indexOf("@"))}",
-    id: streamUser.id,
-    extraData: {
-      "name": "Fit-Generation & ${streamUser.name}",
-      "members": [
-        streamUser.id,
+  const gmailAdminId = "rLVaJidIGIdtZObO5noZ6ELNHkK2";
+  const bluewinAdminId = "Z3LGR5j9oBU4VdiIAlBTf8MuAZF2";
 
-        /// gmail
-        "rLVaJidIGIdtZObO5noZ6ELNHkK2",
+  if (currentUserId != gmailAdminId && currentUserId != bluewinAdminId) {
+    /// create and watch new channel which include the trainers
+    /// https://getstream.io/chat/docs/react/creating_channels/?language=dart
+    final channelState = await streamChatClient.channel(
+      kDefaultChannelType,
+      // id: "Fit-Gen_${streamUser.name.substring(0, streamUser.name.indexOf("@"))}",
+      id: streamUser.id,
+      extraData: {
+        "name": "Fit-Generation & ${streamUser.name}",
+        "members": [
+          streamUser.id,
+          gmailAdminId,
+          bluewinAdminId,
+        ],
+      },
+    ).watch();
 
-        /// bluewin
-        "Z3LGR5j9oBU4VdiIAlBTf8MuAZF2",
-      ],
-    },
-  ).watch();
-
-  print("channelState: $channelState");
-  print("channelState members: ${channelState.members}");
-  print("channelState channel name: ${channelState.channel?.name}");
+    print("channelState: $channelState");
+    print("channelState members: ${channelState.members}");
+    print("channelState channel name: ${channelState.channel?.name}");
+  }
 
   // return streamChatClient;
 }, name: "initChatFutureProvider");
